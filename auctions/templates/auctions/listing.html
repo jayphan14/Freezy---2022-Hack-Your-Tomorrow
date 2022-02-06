@@ -1,0 +1,59 @@
+{% extends 'auctions/layout.html' %}
+
+{% block body %}
+  {% if listing.closed %}
+    <div class="alert alert-info" role="alert">
+      This item is no longer available!
+    </div>
+  {% endif %}
+  <div>
+      
+    <p>{{ message }}</p>
+    <form action="{% url 'listing' listing.id %}" method="POST">
+      {% csrf_token %}
+      
+    </form>
+  </div>
+  <h1>{{ listing.item }}</h1>
+  <div style = "display: flex; flex-direction: row;">
+    
+    
+      <div style="padding-inline: 30px;"> 
+        <img src="{{ listing.image.url }}" alt="image" style="width: 300px; height: auto">
+      </div>
+      
+
+      <div style="padding-inline: 30px;"> 
+      <h4>Details</h4>
+      <ul>
+        <li>{{ listing.description }}</li>
+        <li>Category: {{listing.category}}</li>
+        <li>Listed by: {{ listing.owner }}</li>
+        <li>Address: {{listing.address}}</li>
+      
+      </ul>
+        {% if user.username == listing.owner.username and not listing.closed %}
+        <form action="{% url 'listing' listing.id %}" method="POST">
+          {% csrf_token %}
+          <button type="submit" name="button" class="btn btn-danger" value="Close">Close</button>
+        </form>
+        {% endif %}
+      </div>
+
+    <div style="width: 600px; padding-inline:30px;">
+
+      <h4>Comments</h4>
+      <a href="{% url 'comment' listing.id %}"><span class="badge badge-primary">Add a Comment!</span></a>
+  
+      {% for comment in listing.comments.all %}
+        <div class="container m3-5 p-2 border">
+          <p><strong>{{ comment.title }}</strong></p>
+          <p class="mt-n2">{{ comment.comment }}</p>
+          <p class="mt-n3"><small>{{ comment.time }}</small></p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+ 
+{% endblock %}

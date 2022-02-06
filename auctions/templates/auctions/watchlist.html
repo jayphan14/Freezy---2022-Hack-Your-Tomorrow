@@ -1,0 +1,80 @@
+{% extends 'auctions/layout.html' %}
+
+{% block body %}
+  <h2 style = "text-align: center; font-size: 60px;">Business</h1>
+    
+  
+  <div class="table">
+      <form style = "align-items: center;" class="tr" method="post" action="{% url 'graph' %}">
+        <div class="input-group mb-3" style = "justify-content: center;">
+          <span><input style = "height: 37px; " type="date" id="start" name="date" value="2022-02-06" min="2022-01-01" max="2022-12-31"></span>
+          <span><input name = "inventory" type="text" class="form-control" placeholder="Created" aria-label="Created" aria-describedby="basic-addon2"></span>
+          <span><input name = "leftover" type="text" class="form-control" placeholder="Leftover" aria-label="Lefover" aria-describedby="basic-addon2"></span>
+          <span><button type="submit" class="btn btn-primary">Submit</button></span>
+        </div>
+        
+        <!-- <input type="submit"> -->
+        {% csrf_token %}
+      </form>
+  </div>
+  <hr > 
+  <h3>Recommed Amount</h3>
+  <table style = "justify-content: center; display: flex; width:100%" >
+    <tbody style = "width:100%">
+      <tr style = "display: flex; flex-direction: row; justify-content: space-evenly;width: 100%;">
+        <th>Monday </th>
+        <th>Tuesday </th>
+        <th>Wednesday</th>
+        <th>Thursday</th>
+        <th>Friday</th>
+        <th>Saturday</th>
+        <th>Sunday</th>
+      </tr>
+      
+      <tr style = "display: flex; flex-direction: row; justify-content: space-evenly;width: 100%;">
+        <td>{{item1}}</td>
+        <td>{{item2}}</td>
+        <td>{{item3}}</td>
+        <td>{{item4}}</td>
+        <td>{{item5}}</td>
+        <td>{{item6}}</td>
+        <td>{{item7}}</td>
+        
+      </tr>
+      
+       
+    </tbody>
+  </table> 
+  <hr>
+  <table style = "justify-content: center; display: flex; width:100%; padding-top:50px;" >
+    <tbody style = "width:100%">
+      <tr style = "display: flex; flex-direction: row; justify-content: space-evenly;width: 100%;">
+        <th>Date</th>
+        <th>Created</th>
+        <th>Leftover</th>
+        <th>Sold</th>
+      </tr>
+     
+      
+      {% for item in dataset %}
+        <tr style = "display: flex; flex-direction: row; justify-content: space-evenly;width: 100%;">
+          <td>{{item.date}}</td>
+          <td>{{item.inventory}}</td>
+          <td>{{item.leftover}}</td>
+          <td>{{item.sold}}</tr>
+        </tr>
+      {% endfor %}
+
+
+    </tbody>
+    
+  
+
+  </table>
+  
+  <img src="file:///Users/jayphan/Desktop/cheatcode/auctions/templates/auctions/images/background.png" alt="">
+    
+{% endblock %}
+    
+
+

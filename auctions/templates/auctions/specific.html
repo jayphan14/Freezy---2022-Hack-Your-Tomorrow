@@ -1,0 +1,27 @@
+{% extends 'auctions/layout.html' %}
+
+{% block body %}
+  <h2 class = "pageTitle">{{ category }}</h1>
+
+  {% if  listings.count == 0 %}
+    <div class="alert alert-info" role="alert">
+      There are no listings in this category
+    </div>
+  {% endif %}
+  
+  {% for listing in listings %}
+    <div class="container border p-2 m-2">
+        <div class="row">
+            <div class="col">
+                <img src="{{ listing.image.url }}" alt="image" style="width: 300px; height: auto">
+            </div>
+            <div class="col text-left">
+                <h2 class="display-4">{{ listing.item }}</h2>
+                <p><small>{{ listing.time }}</small></p>
+               
+                <a href="{% url 'listing' listing.id %}" type="submit" class="btn btn-primary">Go To Listing</a>
+            </div>
+        </div>
+    </div>
+  {% endfor %}
+{% endblock %}

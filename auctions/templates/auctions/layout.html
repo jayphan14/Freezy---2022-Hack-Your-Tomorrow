@@ -1,0 +1,84 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{% block title %}Freezy{% endblock %}</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="{% static 'auctions/styles.css' %}" rel="stylesheet">
+        <style>
+            .food:hover { 
+                box-shadow: 0 3px 10px rgb(0,0,0);
+                text-decoration: none;
+            }
+            .header_background {
+                z-index: -1;
+                width: 100%;
+                height: 200px;
+                object-fit: cover;
+                overflow: hidden;
+                filter: brightness(0.5);
+            }
+            
+            .title {
+                color: #ffffff;
+                position: absolute;
+                top: 10.5%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-size: 180px;
+                /* text-decoration-color: #213a60; */
+                /* text-decoration-style: wavy; */
+                text-shadow: 10px 5px #2c7bff;
+            }
+        </style>
+    </head>
+    <body>
+        <div style = "display: flex ; justify-content: center" >
+       
+            <img class= "header_background" src="https://www.dlhcorp.com/wp-content/uploads/2021/04/Child-Abuse-Prevention-Month-Landing.jpg" alt="">
+            
+        </div>
+       
+
+        <h2 class = "title">Freezy</h1>
+        <div>
+            {% if user.is_authenticated %}
+                Signed in as <strong>{{ user.username }}</strong>.
+            {% else %}
+                Not signed in.
+            {% endif %}
+        </div>
+        <ul class="nav" style = "justify-content: space-evenly;">
+            
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index' %}">Around You</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'categories' %}">Explore</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'create' %}">Create Post</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'watchlist' %}">Business <span class="badge badge-secondary">{{ user.watchlist.count }}</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Log In</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'register' %}">Register</a>
+                </li>
+            {% endif %}
+        </ul>
+        <hr>
+        {% block body %}
+        {% endblock %}
+    </body>
+</html>

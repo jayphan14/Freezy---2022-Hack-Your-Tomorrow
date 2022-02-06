@@ -1,0 +1,31 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    {% if request.user.is_authenticated %}
+    <h2 style = "text-align: center;font-size : 60px;">Around You</h2>
+        
+    <div class= "map" style = "padding-left: 100px; padding-right: 100px; padding-top:30px">
+        {{m | safe}}
+    </div>
+       
+
+        {% for listing in listings %}
+            {% if not listing.closed %}
+                <div class="container border p-2 m-2" style = "margin-top: 30px;">
+                    <div class="row" >
+                        <div class="col">
+                            <img src="{{ listing.image.url }}" alt="image" style="width: 300px; height: auto; margin-left: 50px;">
+                        </div>
+                        <div class="col text-left">
+                            <h2 class="display-4">{{ listing.item }}</h2>
+                            
+                            <p><large>{{ listing.address}}</small></p>
+                            <p><small>{{ listing.time }}</small></p>
+                            <a href="{% url 'listing' listing.id %}" type="submit" class="btn btn-primary">Go To Item</a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endblock %}

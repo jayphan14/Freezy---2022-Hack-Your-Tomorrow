@@ -1,0 +1,11 @@
+{% extends 'auctions/layout.html' %}
+{% load crispy_forms_tags %}  
+{% block body %}
+  <h1 style = "font-size: 60px; text-align: center;">Create a New Post</h1>
+  
+  <form action="{% url 'create' %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form| crispy}}
+    <input type="submit" value="Create Listing" class="btn btn-primary">
+  </form>
+{% endblock %}
