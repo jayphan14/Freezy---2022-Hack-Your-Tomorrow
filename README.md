@@ -11,9 +11,10 @@ This project was built with: Python, HTML, CSS, Bootstrap and Django
 # How to run
 
 Clone the file 
-in CMD, run 
-"python3 manage.py makemigrations" or "python manage.py makemigrations"
+in CMD, run:
 
-"python3 manage.py migrate" or "python manage.py migrate"
+1. "python3 manage.py makemigrations" or "python manage.py makemigrations"
 
-"python3 manage.py runserver" or "python manage.py runserver"
+2. "python3 manage.py migrate" or "python manage.py migrate"
+
+3. "python3 manage.py runserver" or "python manage.py runserver"
